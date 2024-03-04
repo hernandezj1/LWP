@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Timeline Selector</title>
+</head>
+<body>
+
+<select id="timelineSelector" onchange="changeTimeline()">
+  <option value="17uHPIs0Nj05j3s5nvMgQLWRFQaepksfD">Agnes H. Morton</option>
+  <option value="1mrA7kaCDCE_L0OiMpHuVC-3sf3EFJJgr">Agnes Colton</option>
+  <option value="1zF4dVSteCGjFZagreRRutmGkOnS7pZ_9">Ada Louise Comstock</option>
+  <option value="186mJDDoLWS3ebPDwVwzfmsSd5eckXjQx">Ada Lou Carson</option>
+  
+</select>
+
+<iframe id="timelineIframe" width="100%" height="650" webkitallowfullscreen mozallowfullscreen allowfullscreen frameborder="0"></iframe>
+
+<script>
+function changeTimeline() {
+  var selector = document.getElementById("timelineSelector");
+  var selectedSourceCode = selector.options[selector.selectedIndex].value;
+  var iframe = document.getElementById("timelineIframe");
+  var newSrc = `https://cdn.knightlab.com/libs/timeline3/latest/embed/index.html?source=${selectedSourceCode}&font=Default&lang=en&initial_zoom=2&height=650`;
+  iframe.src = newSrc;
+}
+
+// Initialize with the default timeline
+changeTimeline();
+</script>
+
+</body>
+</html>
