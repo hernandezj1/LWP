@@ -6,16 +6,26 @@
 <body>
 
 <select id="timelineSelector" onchange="changeTimeline()">
-  <option value="17uHPIs0Nj05j3s5nvMgQLWRFQaepksfD">Agnes H. Morton</option>
-  <option value="1mrA7kaCDCE_L0OiMpHuVC-3sf3EFJJgr">Agnes Colton</option>
-  <option value="1zF4dVSteCGjFZagreRRutmGkOnS7pZ_9">Ada Louise Comstock</option>
-  <option value="186mJDDoLWS3ebPDwVwzfmsSd5eckXjQx">Ada Lou Carson</option>
-  
 </select>
 
 <iframe id="timelineIframe" width="100%" height="650" webkitallowfullscreen mozallowfullscreen allowfullscreen frameborder="0"></iframe>
 
 <script>
+// Fetch CSV file and populate dropdown
+fetch('links.csv')
+  .then(response => response.text())
+  .then(csv => {
+    const rows = csv.split('\n');
+    const selector = document.getElementById("timelineSelector");
+    rows.forEach(row => {
+      const [name, url] = row.split(',');
+      const option = document.createElement("option");
+      option.text = name;
+      option.value = url.trim();
+      selector.add(option);
+    });
+  });
+
 function changeTimeline() {
   var selector = document.getElementById("timelineSelector");
   var selectedSourceCode = selector.options[selector.selectedIndex].value;
