@@ -17,13 +17,24 @@ fetch('links.csv')
   .then(csv => {
     const rows = csv.split('\n');
     const selector = document.getElementById("timelineSelector");
-    rows.forEach(row => {
-      const [name, url] = row.split(',');
+
+    // Extract the first row from CSV
+    const firstRow = rows[0].split(',');
+
+    // Set the first option based on the first row data
+    const firstOption = document.createElement("option");
+    firstOption.text = firstRow[0].trim(); // Assuming the name is in the first column
+    firstOption.value = firstRow[1].trim(); // Assuming the URL is in the second column
+    selector.add(firstOption);
+
+    // Populate the rest of the options
+    for (let i = 1; i < rows.length; i++) {
+      const [name, url] = rows[i].split(',');
       const option = document.createElement("option");
-      option.text = name;
+      option.text = name.trim();
       option.value = url.trim();
       selector.add(option);
-    });
+    }
   });
 
 function changeTimeline() {
