@@ -24,6 +24,8 @@ fetch('links.csv')
       option.value = url.trim();
       selector.add(option);
     });
+    selector.selectedIndex = 0;
+    changeTimeline();
   });
 
 function changeTimeline() {
@@ -33,9 +35,6 @@ function changeTimeline() {
   var newSrc = `https://cdn.knightlab.com/libs/timeline3/latest/embed/index.html?source=${selectedSourceCode}&font=Default&lang=en&initial_zoom=2&height=650`;
   iframe.src = newSrc;
 }
-
-// Initialize with the default timeline
-changeTimeline();
 </script>
 
 </body>
