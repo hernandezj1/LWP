@@ -24,8 +24,7 @@ fetch('links.csv')
       option.value = url.trim();
       selector.add(option);
     });
-    selector.selectedIndex = 1;
-    changeTimeline();
+    selectOptionByName('name');
   });
 
 function changeTimeline() {
@@ -34,6 +33,17 @@ function changeTimeline() {
   var iframe = document.getElementById("timelineIframe");
   var newSrc = `https://cdn.knightlab.com/libs/timeline3/latest/embed/index.html?source=${selectedSourceCode}&font=Default&lang=en&initial_zoom=2&height=650`;
   iframe.src = newSrc;
+}
+
+function selectOptionByName(name) {
+  var selector = document.getElementById("timelineSelector");
+  for (var i = 0; i < selector.options.length; i++) {
+    if (selector.options[i].text === name) {
+      selector.selectedIndex = i;
+      changeTimeline();
+      break;
+    }
+  }
 }
 </script>
 
