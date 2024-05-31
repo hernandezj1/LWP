@@ -24,7 +24,9 @@ fetch('links.csv')
       option.value = url.trim();
       selector.add(option);
     });
-    selectOptionByName('Ada Lou Carson');
+    if (selector.options.length > 0) {
+      selectOptionByName('Ada Lou Carson');
+    }
   });
 
 function changeTimeline() {
