@@ -19,15 +19,25 @@ fetch('links.csv')
     const selector = document.getElementById("timelineSelector");
     rows.forEach(row => {
       const [name, url] = row.split(',');
-      const option = document.createElement("option");
-      option.text = name;
-      option.value = url.trim();
-      selector.add(option);
+      if (name && url) { // Check if both name and url are present
+        const option = document.createElement("option");
+        option.text = name.trim();
+        option.value = extractSpreadsheetId(url.trim());
+        selector.add(option);
+      }
     });
     if (selector.options.length > 0) {
       selectOptionByName('Ada Lou Carson');
     }
-  });
+  })
+  .catch(error => console.error('Error fetching the CSV file:', error));
+
+// Function to extract spreadsheet ID from URL
+function extractSpreadsheetId(url) {
+  const regex = /spreadsheets\/d\/([a-zA-Z0-9-_]+)/;
+  const match = url.match(regex);
+  return match ? match[1] : '';
+}
 
 function changeTimeline() {
   var selector = document.getElementById("timelineSelector");
@@ -51,4 +61,3 @@ function selectOptionByName(name) {
 
 </body>
 </html>
-
