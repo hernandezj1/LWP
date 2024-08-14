@@ -20,33 +20,24 @@
       top: 100%;
     }
 
-    /* Style to show dropdown when search bar is focused */
-    #searchBar:focus + select#timelineSelector {
-      display: block;
-    }
-
-    /* Positioning to ensure dropdown is on top of the next element */
-    select#timelineSelector {
-      position: absolute;
-      z-index: 1;
-    }
-
     /* Optional: Smooth transition for dropdown visibility */
     select#timelineSelector {
       transition: opacity 0.3s ease-in-out;
       opacity: 0;
     }
 
+    /* Show dropdown when search bar is focused */
     #searchBar:focus + select#timelineSelector {
       opacity: 1;
+      display: block; /* Show the dropdown when search bar is focused */
     }
   </style>
 </head>
 <body>
 
 <div id="container">
-  <input type="text" id="searchBar" onkeyup="filterOptions()" placeholder="Search for a timeline..." onfocus="showDropdown()" onblur="hideDropdown()">
-  <select id="timelineSelector" onchange="changeTimeline()" size="10">
+  <input type="text" id="searchBar" onkeyup="filterOptions()" placeholder="Search for a timeline..." onfocus="showDropdown()" onblur="checkFocus()">
+  <select id="timelineSelector" onchange="changeTimeline()" size="10" onblur="checkFocus()" onclick="keepDropdownVisible()">
   </select>
 </div>
 
@@ -124,12 +115,21 @@ function showDropdown() {
   dropdown.style.display = "block";
 }
 
-// Hide dropdown when search bar loses focus
-function hideDropdown() {
-  var dropdown = document.getElementById("timelineSelector");
+// Check if dropdown or search bar has focus before hiding
+function checkFocus() {
   setTimeout(function() {
-    dropdown.style.display = "none";
+    var searchBar = document.getElementById("searchBar");
+    var dropdown = document.getElementById("timelineSelector");
+    if (!searchBar.matches(':focus') && !dropdown.matches(':focus')) {
+      dropdown.style.display = "none";
+    }
   }, 200); // Delay to allow option click before hiding
+}
+
+// Keep dropdown visible when clicking on it
+function keepDropdownVisible() {
+  var dropdown = document.getElementById("timelineSelector");
+  dropdown.style.display = "block";
 }
 </script>
 
