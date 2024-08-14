@@ -36,7 +36,7 @@
 <body>
 
 <div id="container">
-  <input type="text" id="searchBar" onkeyup="filterOptions()" placeholder="Search for a timeline..." onfocus="showDropdown()" onblur="checkFocus()">
+  <input type="text" id="searchBar" onkeyup="filterOptions()" placeholder="Search for a timeline..." onfocus="showDropdown()">
   <select id="timelineSelector" onchange="changeTimeline()" size="10" onmousedown="keepDropdownVisible()">
   </select>
 </div>
@@ -115,23 +115,23 @@ function showDropdown() {
   dropdown.style.display = "block";
 }
 
-// Check if dropdown or search bar has focus before hiding
-function checkFocus() {
-  setTimeout(function() {
-    var searchBar = document.getElementById("searchBar");
-    var dropdown = document.getElementById("timelineSelector");
-    if (!searchBar.matches(':focus') && !dropdown.matches(':focus')) {
-      dropdown.style.display = "none";
-    }
-  }, 200); // Delay to allow option click before hiding
-}
-
 // Keep dropdown visible when interacting with it
 function keepDropdownVisible() {
   var dropdown = document.getElementById("timelineSelector");
   dropdown.style.display = "block";
 }
+
+// Hide dropdown when clicking outside of it or the search bar
+document.addEventListener('click', function(event) {
+  var container = document.getElementById('container');
+  var dropdown = document.getElementById('timelineSelector');
+  
+  if (!container.contains(event.target)) {
+    dropdown.style.display = 'none';
+  }
+});
 </script>
 
 </body>
 </html>
+
