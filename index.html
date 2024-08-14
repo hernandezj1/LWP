@@ -32,7 +32,7 @@
 
 <div id="container">
   <input type="text" id="searchBar" onkeyup="filterOptions()" placeholder="Search for a timeline..." onfocus="showDropdown()">
-  <select id="timelineSelector" onchange="changeTimeline()" size="10" onmousedown="keepDropdownVisible()">
+  <select id="timelineSelector" onchange="changeTimeline()" size="10">
   </select>
 </div>
 
@@ -73,6 +73,8 @@ function changeTimeline() {
   var iframe = document.getElementById("timelineIframe");
   var newSrc = `https://cdn.knightlab.com/libs/timeline3/latest/embed/index.html?source=${selectedSourceCode}&font=Default&lang=en&initial_zoom=2&height=650`;
   iframe.src = newSrc;
+
+  selector.style.display = 'none';
 }
 
 function selectOptionByName(name) {
@@ -108,17 +110,6 @@ function filterOptions() {
 function showDropdown() {
   var dropdown = document.getElementById("timelineSelector");
   dropdown.style.display = "block";
-}
-
-
-// Hide dropdown when clicking outside of it or the search bar
-document.addEventListener('click', function(event) {
-  var container = document.getElementById('container');
-  var dropdown = document.getElementById('timelineSelector');
-  
-  if (!container.contains(event.target)) {
-    dropdown.style.display = 'none';
-  }
 });
 </script>
 
