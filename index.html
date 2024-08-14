@@ -8,8 +8,7 @@
       display: flex;
       flex-direction: column;
       width: 300px; /* Adjust the width as needed */
-      position: relative; 
-      
+      position: relative; /* Ensure relative positioning of container */
     }
 
     /* Hide dropdown by default */
@@ -17,19 +16,20 @@
       display: none;
       height: 150px;
       overflow: auto;
-      top: 100%;
-    }
-
-    /* Optional: Smooth transition for dropdown visibility */
-    select#timelineSelector {
-      transition: opacity 0.3s ease-in-out;
-      opacity: 0;
+      position: absolute;
+      top: 100%; /* Position dropdown below the search bar */
+      left: 0;
+      width: 100%;
+      z-index: 1000; /* Ensure it overlays the next element */
+      background-color: white; /* Ensure dropdown background */
+      border: 1px solid #ccc; /* Add a border to the dropdown */
+      box-sizing: border-box;
     }
 
     /* Show dropdown when search bar is focused */
-    #searchBar:focus + select#timelineSelector {
-      opacity: 1;
-      display: block; /* Show the dropdown when search bar is focused */
+    #searchBar:focus + select#timelineSelector,
+    #timelineSelector:focus {
+      display: block;
     }
   </style>
 </head>
@@ -37,7 +37,7 @@
 
 <div id="container">
   <input type="text" id="searchBar" onkeyup="filterOptions()" placeholder="Search for a timeline..." onfocus="showDropdown()" onblur="checkFocus()">
-  <select id="timelineSelector" onchange="changeTimeline()" size="10" onblur="checkFocus()" onclick="keepDropdownVisible()">
+  <select id="timelineSelector" onchange="changeTimeline()" size="10" onmousedown="keepDropdownVisible()">
   </select>
 </div>
 
@@ -126,7 +126,7 @@ function checkFocus() {
   }, 200); // Delay to allow option click before hiding
 }
 
-// Keep dropdown visible when clicking on it
+// Keep dropdown visible when interacting with it
 function keepDropdownVisible() {
   var dropdown = document.getElementById("timelineSelector");
   dropdown.style.display = "block";
