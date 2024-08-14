@@ -5,6 +5,7 @@
 </head>
 <body>
 
+<input type="text" id="searchBar" onkeyup="filterOptions()" placeholder="Search for a timeline...">
 <select id="timelineSelector" onchange="changeTimeline()">
 </select>
 
@@ -57,7 +58,26 @@ function selectOptionByName(name) {
     }
   }
 }
+
+// Function to filter dropdown options
+function filterOptions() {
+  var input, filter, selector, options, i;
+  input = document.getElementById("searchBar");
+  filter = input.value.toLowerCase();
+  selector = document.getElementById("timelineSelector");
+  options = selector.options;
+  
+  for (i = 0; i < options.length; i++) {
+    var optionText = options[i].text.toLowerCase();
+    if (optionText.indexOf(filter) > -1) {
+      options[i].style.display = "";
+    } else {
+      options[i].style.display = "none";
+    }
+  }
+}
 </script>
 
 </body>
 </html>
+
