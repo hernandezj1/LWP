@@ -2,12 +2,33 @@
 <html>
 <head>
   <title>Timeline Selector</title>
+  <style>
+    /* Ensure the search bar and dropdown are stacked vertically */
+    #container {
+      display: flex;
+      flex-direction: column;
+      width: 300px; /* Adjust the width as needed */
+    }
+
+    /* Style to keep the dropdown open */
+    select#timelineSelector:focus {
+      height: auto;
+    }
+    
+    /* Ensure the dropdown remains visible and can be scrolled */
+    select#timelineSelector {
+      height: 150px;
+      overflow: auto;
+    }
+  </style>
 </head>
 <body>
 
-<input type="text" id="searchBar" onkeyup="filterOptions()" placeholder="Search for a timeline...">
-<select id="timelineSelector" onchange="changeTimeline()">
-</select>
+<div id="container">
+  <input type="text" id="searchBar" onkeyup="filterOptions()" placeholder="Search for a timeline...">
+  <select id="timelineSelector" onchange="changeTimeline()" size="10">
+  </select>
+</div>
 
 <iframe id="timelineIframe" width="100%" height="650" webkitallowfullscreen mozallowfullscreen allowfullscreen frameborder="0"></iframe>
 
@@ -80,4 +101,5 @@ function filterOptions() {
 
 </body>
 </html>
+
 
